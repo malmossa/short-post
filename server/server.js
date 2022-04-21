@@ -4,11 +4,20 @@ const app = express();
 
 const port = process.env.PORT || 5001;
 
-app.get("/getallposts", (req, res) => {
-  res.json({
-    status: 200,
-    postTilte: "Hello there",
-    postMessage: "My name is Mansor",
+//Get all posts
+app.get("/api/posts", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      post1: {
+        postTitle: "Hello",
+        postMessage: "Hi there, my name is Mansor Almossa",
+      },
+      post2: {
+        postTitle: "Hello",
+        postMessage: "Hi there, my name is Mansor Almossa",
+      },
+    },
   });
 });
 
