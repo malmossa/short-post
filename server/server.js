@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = process.env.PORT || 5001;
+const port = 5000;
 
 //Get all posts
 app.get("/api/posts", (req, res) => {
