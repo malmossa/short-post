@@ -14,21 +14,18 @@ const port = process.env.PORT || 5001;
 
 //Get all posts
 app.get("/api/posts", async (req, res) => {
-  const results = await db.query("SELECT * FROM post");
-  console.log(results);
-  res.status(200).json({
-    status: "success",
-    data: {
-      post1: {
-        postTitle: "Hello",
-        postMessage: "Hi there, my name is Mansor Almossa",
+  try {
+    const results = await db.query("SELECT * FROM post");
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        posts: results.rows,
       },
-      post2: {
-        postTitle: "Hello",
-        postMessage: "Hi there, my name is Mansor Almossa",
-      },
-    },
-  });
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 // Get one post
