@@ -3,14 +3,19 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 
+// importing database connection
+const db = require("./db");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-const port = 5000;
+const port = process.env.PORT || 5001;
 
 //Get all posts
-app.get("/api/posts", (req, res) => {
+app.get("/api/posts", async (req, res) => {
+  const results = await db.query("SELECT * FROM post");
+  console.log(results);
   res.status(200).json({
     status: "success",
     data: {
