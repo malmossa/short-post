@@ -47,9 +47,22 @@ app.get("/api/posts/:id", async (req, res) => {
 });
 
 // Create a post
-app.post("/api/posts", (req, res) => {
+app.post("/api/posts", async (req, res) => {
   console.log(req.body);
-  res.send("posr was created.");
+  try {
+    const results = await db.query(
+      "INSERT INTO post (post_title, post_message) VALUES ($1, $2) returning *",
+      [req.body.post_title, req.body.post_message]
+    );
+    res.status(201).json({
+      status: "succes",
+      data: {
+        post: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 // Update a post
