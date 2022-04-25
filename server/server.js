@@ -29,14 +29,21 @@ app.get("/api/posts", async (req, res) => {
 });
 
 // Get one post
-app.get("/api/posts/:id", (req, res) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      postTile: "Hi",
-      postMessage: "Hello there!!",
-    },
-  });
+app.get("/api/posts/:id", async (req, res) => {
+  try {
+    const results = await db.query("SELECT * FROM post WHERE post_id = $1", [
+      req.params.id,
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        post: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 // Create a post
