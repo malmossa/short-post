@@ -85,9 +85,17 @@ app.put("/api/posts/:id", async (req, res) => {
 });
 
 // Delete a post
-app.delete("/api/posts/:id", (req, res) => {
-  console.log(req.params.id);
-  res.send("Post was deleted");
+app.delete("/api/posts/:id", async (req, res) => {
+  try {
+    const results = await db.query("DELETE FROM post WHERE post_id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "sucess",
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 app.listen(port, () => {
