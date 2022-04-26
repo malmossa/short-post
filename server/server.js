@@ -66,10 +66,22 @@ app.post("/api/posts", async (req, res) => {
 });
 
 // Update a post
-app.put("/api/posts/:id", (req, res) => {
-  console.log(req.params.id);
-  console.log(req.body);
-  res.send("post was updated.");
+app.put("/api/posts/:id", async (req, res) => {
+  try {
+    const results = await db.query(
+      "UPDATE post SET post_title = $1, post_message = $2 WHERE post_id = $3 returning *",
+      [req.body.Title, req.body.Post, req.params.id]
+    );
+
+    res.status(200).json({
+      status: "succes",
+      data: {
+        post: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 // Delete a post
