@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import PostDetailPage from "./routes/PostDetailPage";
 import UpdatePage from "./routes/UpdatePage";
-import { PostsContext } from "./contextAPI/PostsContext";
+import { PostsContextProvider } from "./contextAPI/PostsContext";
 
 const App = () => {
   return (
-    <PostsContext>
+    <PostsContextProvider>
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -16,7 +16,7 @@ const App = () => {
           <Route exact path="/posts/:id/update" element={<UpdatePage />} />
         </Routes>
       </Router>
-    </PostsContext>
+    </PostsContextProvider>
   );
 };
 
