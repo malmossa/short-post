@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import PostsApi from "../api/PostsApi";
+import { PostsContext } from "../contextAPI/PostsContext";
 
-const PostsList = () => {
+const PostsList = (props) => {
+  const { posts, setPosts } = useContext(PostsContext);
   useEffect(() => {
     const feachData = async () => {
       try {
         const response = await PostsApi.get("/");
-        console.log(response);
+        setPosts(response.data.data.posts);
       } catch (err) {
         console.error(err.message);
       }
