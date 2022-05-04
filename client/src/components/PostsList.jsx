@@ -1,5 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import PostsApi from "../api/PostsApi";
+
 const PostsList = () => {
+  useEffect(() => {
+    const feachData = async () => {
+      try {
+        const response = await PostsApi.get("/");
+        console.log(response);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    feachData();
+  }, []);
+
   return (
     <div className="list-group">
       <table className="table table-hover table-dark table-striped">
