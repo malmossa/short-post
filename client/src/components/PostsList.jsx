@@ -4,6 +4,7 @@ import { PostsContext } from "../contextAPI/PostsContext";
 
 const PostsList = (props) => {
   const { posts, setPosts } = useContext(PostsContext);
+
   useEffect(() => {
     const feachData = async () => {
       try {
@@ -21,48 +22,29 @@ const PostsList = (props) => {
     <div className="list-group">
       <table className="table table-hover table-dark table-striped">
         <thead>
-          <tr>
+          <tr key={posts.id}>
+            <th scope="col">Title</th>
             <th scope="col">Post</th>
-            <th scope="col">Author</th>
-            <th scope="col">Rating</th>
+            {/* <th scope="col">Rating</th> */}
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Hello everyone</td>
-            <td>Mansor Almossa</td>
-            <td>Five stars</td>
-            <td>
-              <button className="btn btn-sm btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-sm btn-danger">Update</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Hello everyone</td>
-            <td>Mansor Almossa</td>
-            <td>Five stars</td>
-            <td>
-              <button className="btn btn-sm btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-sm btn-danger">Update</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Hello everyone</td>
-            <td>Mansor Almossa</td>
-            <td>Five stars</td>
-            <td>
-              <button className="btn btn-sm btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-sm btn-danger">Update</button>
-            </td>
-          </tr>
+          {posts.map((post) => {
+            return (
+              <tr>
+                <td>{post.post_title}</td>
+                <td>{post.post_message}</td>
+                <td>
+                  <button className="btn btn-sm btn-warning">Update</button>
+                </td>
+                <td>
+                  <button className="btn btn-sm btn-danger">Delete</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
